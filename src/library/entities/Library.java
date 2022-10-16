@@ -215,10 +215,6 @@ public class Library implements Serializable {
 		Item item  = currentLoan.getItem();
 		long itemId = item.getId();
 
-		if (currentLoan.isOverDue()) {
-	        double overDueFine = currentLoan.getFines();      
-	        patron.incurFine(overDueFine); 		    
-		}
 		if (isDamaged) {
 		    patron.incurFine(DAMAGE_FEE);
             damagedItems.put(itemId, item);

@@ -130,8 +130,7 @@ public class Main {
 		output("\nEnded\n");
 	}	
 
-	
-	private static void payFines() {
+		private static void payFines() {
 		new PayFineUI(new PayFineControl()).run();		
 	}
 
@@ -180,7 +179,7 @@ public class Main {
 
 	private static void incrementDate() {
 		try {
-			int days = 2;
+			int days = Integer.valueOf(input("Enter number of days: ")).intValue();
 			calendar.incrementDate(days);
 			library.updateCurrentLoanStatus();
 			output(simpleDateFormat.format(calendar.getDate()));
@@ -193,11 +192,52 @@ public class Main {
 
 	private static void addItem() {
 		
-		ItemType itemType = ItemType.BOOK;
-		
-		String author = "Example Author";
-		String title  = "Example Title";
-		String callNo = "Example CallNo";
+		ItemType itemType = null;
+		String typeMenu = """
+			Select item type:
+			    B : Book
+			    D : DVD video disk
+			    V : VHS video cassette
+			    C : CD audio disk
+			    A : Audio cassette
+			   Choice <Enter quits> : """;
+
+		while (itemType == null) {
+			String type = input(typeMenu);
+			
+			switch (type.toUpperCase()) {
+			case "B": 
+				itemType = ItemType.BOOK;
+				break;
+				
+			case "D": 
+				itemType = ItemType.DVD;
+				break;
+				
+			case "V": 
+				itemType = ItemType.VHS;
+				break;
+				
+			case "C": 
+				itemType = ItemType.CD;
+				break;
+				
+			case "A": 
+				itemType = ItemType.CASSETTE;
+				break;
+				
+			case "": 
+				return;
+			
+			default:
+				output(type + " is not a recognised Item type");
+	
+			}
+		}
+
+		String author = input("Enter author: ");
+		String title  = input("Enter title: ");
+		String callNo = input("Enter call number: ");
 		Item item = library.addItem(author, title, callNo, itemType);
 		output("\n" + item + "\n");
 		
@@ -206,10 +246,10 @@ public class Main {
 	
 	private static void addPatron() {
 		try {
-			String firstName  = "Matthew";
-			String lastName = "Scavone";
-			String emailAddress = "mattscavone11@gmail.com";
-			long phoneNo = Long.valueOf("0459741190").intValue();
+			String firstName  = input("Enter first name: ");
+			String lastName = input("Enter last name: ");
+			String emailAddress = input("Enter email address: ");
+			long phoneNo = Long.valueOf(input("Enter phone number: ")).intValue();
 			Patron patron = library.addPatron(firstName, lastName, emailAddress, phoneNo);
 			output("\n" + patron + "\n");
 			

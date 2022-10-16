@@ -80,6 +80,7 @@ public class BorrowItemControl {
 			ui.display("Loan limit reached");
 			borrowingCompleted();
 		}
+		borrowingCompleted();
 	}
 	
 	
